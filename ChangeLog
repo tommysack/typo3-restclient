@@ -1,0 +1,52 @@
+2015-11-27 Tommaso Sacramone  <tommasosacramone.www@gmail.com>  
+  * Add optional feature initClient in function reset
+  * Fix to integer the max_redirect field in configuration   
+  * Some small updates to documentation 
+  * Release of restclient 1.1.2 in TER
+
+2015-11-23 Tommaso Sacramone  <tommasosacramone.www@gmail.com>  
+  * Some small bugfix update in HttpClient Hook
+  * Some small updates to documentation
+  * Add composer.json, change extension icon  
+  * Release of restclient 1.1.1 in TER
+
+2015-11-16 Tommaso Sacramone  <tommasosacramone.www@gmail.com>  
+  * Removed test plugin, small improvements of HttpClient code, some small bugfix update, new minor version for compatibility with TYPO3 7.6
+  * Release of restclient 1.1.0 in TER
+
+2015-11-12 Tommaso Sacramone  <tommasosacramone.www@gmail.com>  
+  * Add support for User Agent, file uploads, and some helpers to HttpClientRequest
+  * Release of restclient 1.0.8 in TER
+
+2015-11-08 Tommaso Sacramone  <tommasosacramone.www@gmail.com>  
+  * Add HttpClientRequest
+  * Release of restclient 1.0.7 in TER
+
+2015-11-06 Tommaso Sacramone  <tommasosacramone.www@gmail.com>  
+  * Add typo3 logging, and improve documentation
+  * Release of restclient 1.0.6 in TER
+
+2015-11-03 Tommaso Sacramone  <tommasosacramone.www@gmail.com>  
+  * Add max in follow redirect, header to array, and the shorthands for CRUD
+  * Release of restclient 1.0.5 in TER
+
+2015-10-30  Tommaso Sacramone  <tommasosacramone.www@gmail.com>  
+  * Add hook to preprocess the response, and support cookies
+  * Release of restclient 1.0.4 in TER
+
+2015-10-28  Tommaso Sacramone  <tommasosacramone.www@gmail.com>
+  * Add documentation
+  * Add support https certificates, follow_redirect and check http code
+  * Release of restclient 1.0.3 in TER
+
+2015-10-26  Tommaso Sacramone  <tommasosacramone.www@gmail.com>
+  * Add support authentication scheme and system http proxy 
+  * Fix extension manager configuration of property 'error_throw_exception'
+  * Release of restclient 1.0.2 in TER
+
+2015-10-25  Tommaso Sacramone  <tommasosacramone.www@gmail.com>
+  * Refactoring of documentation (sphinx)
+  * Release of restclient 1.0.1 in TER
+
+2015-10-23  Tommaso Sacramone  <tommasosacramone.www@gmail.com>
+  * First release of restclient 1.0.0 in TER

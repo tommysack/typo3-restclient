@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+  <file source-language="en" datatype="plaintext" original="messages" date="2015-10-14T15:00:00Z" product-name="restclient">
+    <header/>
+    <body>      
+      <trans-unit id="extmng.error_throw_exception" xml:space="preserve">
+        <source>Error Throw Exception: If an error occurs throw HttpClientException.</source>
+      </trans-unit>
+      <trans-unit id="extmng.error_log" xml:space="preserve">
+        <source>Error Log: If an error occurs log is written to file typo3temp/logs/typo3.log.</source>
+      </trans-unit>
+      <trans-unit id="extmng.client_connection_timeout" xml:space="preserve">
+        <source>Client Connection Timeout: Max seconds allowed to connect to the server.</source>
+      </trans-unit> 
+      <trans-unit id="extmng.client_timeout" xml:space="preserve">
+        <source>Client Timeout: Max seconds allowed to individual calls.</source>
+      </trans-unit>
+      <trans-unit id="extmng.client_proxy_typo3" xml:space="preserve">
+        <source>Client Proxy Typo3: Use the system HTTP proxy (TYPO3_CONF_VARS[HTTP][proxy_*]).</source>
+      </trans-unit>
+      <trans-unit id="extmng.client_proxy_address" xml:space="preserve">
+        <source>Client Proxy Address: The proxy address to send the requests.</source>
+      </trans-unit>
+      <trans-unit id="extmng.client_proxy_port" xml:space="preserve">
+        <source>Client Proxy Port: The proxy port to use.</source>
+      </trans-unit>
+      <trans-unit id="extmng.client_proxy_credentials" xml:space="preserve">
+        <source>Client Proxy Credentials: The proxy credentials to use.</source>
+      </trans-unit>      
+      <trans-unit id="extmng.client_proxy_auth_scheme" xml:space="preserve">
+        <source>Client Proxy Auth Scheme: Authentication method.</source>
+      </trans-unit>
+      <trans-unit id="extmng.client_follow_redirect" xml:space="preserve">
+        <source>Client Follow Redirect: Client follow redirect.</source>
+      </trans-unit>
+      <trans-unit id="extmng.client_max_redirect" xml:space="preserve">
+        <source>Client Max Redirect: Client maximum number of redirect.</source>
+      </trans-unit>
+      <trans-unit id="extmng.client_check_httpcode" xml:space="preserve">
+        <source>Client Check Http Code: Client verify the response http status code (failure if greater or equal than 400).</source>
+      </trans-unit>
+      <trans-unit id="extmng.client_user_agent" xml:space="preserve">
+        <source>Client User Agent: Use any User Agent you choose.</source>
+      </trans-unit>            
+    </body>
+  </file>
+</xliff>

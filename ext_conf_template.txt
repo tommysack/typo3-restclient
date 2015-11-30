@@ -1,0 +1,40 @@
+ # cat=basic//10; type=boolean; label=LLL:EXT:restclient/Resources/Private/Language/locallang.xlf:extmng.error_throw_exception
+error_throw_exception = false
+
+ # cat=basic//13; type=options[=,info=1,warning=2,error=3,critical=4]; label=LLL:EXT:restclient/Resources/Private/Language/locallang.xlf:extmng.error_log
+error_log = 
+
+ # cat=basic//15; type=boolean; label=LLL:EXT:restclient/Resources/Private/Language/locallang.xlf:extmng.client_check_httpcode
+client_check_httpcode = false
+
+ # cat=basic//20; type=integer; label=LLL:EXT:restclient/Resources/Private/Language/locallang.xlf:extmng.client_connection_timeout
+client_connection_timeout = 
+
+ # cat=basic//30; type=integer; label= LLL:EXT:restclient/Resources/Private/Language/locallang.xlf:extmng.client_timeout
+client_timeout = 
+
+ # cat=basic//32; type=boolean; label= LLL:EXT:restclient/Resources/Private/Language/locallang.xlf:extmng.client_follow_redirect
+client_follow_redirect = 
+
+# cat=basic//34; type=integer; label= LLL:EXT:restclient/Resources/Private/Language/locallang.xlf:extmng.client_max_redirect
+client_max_redirect = 
+
+ # cat=basic//35; type=boolean; label=LLL:EXT:restclient/Resources/Private/Language/locallang.xlf:extmng.client_proxy_typo3
+client_proxy_typo3 = false
+
+ # cat=basic//40; type=string; label=LLL:EXT:restclient/Resources/Private/Language/locallang.xlf:extmng.client_proxy_address
+client_proxy_address =
+
+ # cat=basic//50; type=integer; label= LLL:EXT:restclient/Resources/Private/Language/locallang.xlf:extmng.client_proxy_port
+client_proxy_port = 
+
+ # cat=basic//60; type=string; label=LLL:EXT:restclient/Resources/Private/Language/locallang.xlf:extmng.client_proxy_credentials
+client_proxy_credentials =
+
+ # cat=basic//70; type=options[=,basic=basic,digest=digest]; label=LLL:EXT:restclient/Resources/Private/Language/locallang.xlf:extmng.client_proxy_auth_scheme
+client_proxy_auth_scheme =
+
+ # cat=basic//80; type=string; label=LLL:EXT:restclient/Resources/Private/Language/locallang.xlf:extmng.client_user_agent
+client_user_agent =
+
+

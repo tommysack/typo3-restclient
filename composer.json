@@ -1,0 +1,21 @@
+{
+    "name": "ts/restclient",
+    "type": "typo3-cms-extension",
+    "description": "A client to consume RESTful Web Services", 
+    "homepage": "https://typo3.org/extensions/repository/view/restclient",
+    "authors": [
+        {
+            "name": "Tommaso Sacramone",
+            "email": "tommasosacramone.www@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "typo3/cms-core": ">=6.2.0"        
+    },       
+    "keywords": ["restclient", "rest", "client", "restful", "http", "webservices"],
+    "support": {
+        "issues": "https://forge.typo3.org/projects/extension-restclient"
+    },
+    "version": "1.1.1"
+}
