@@ -89,17 +89,17 @@ class HttpClient {
   protected $settings;
   
   /**   
-   * @var HttpClientError The error
+   * @var \TS\Restclient\Client\HttpClientError The error
    */
   protected $error;
   
   /**   
-   * @var HttpClienResponse The response
+   * @var \TS\Restclient\Client\HttpClientResponse The response
    */
   protected $response;
   
   /**   
-   * @var HttpClienRequest The request
+   * @var \TS\Restclient\Client\HttpClientRequest The request
    */
   protected $request;
   
@@ -150,28 +150,22 @@ class HttpClient {
     if ($extConf['client_timeout'] !== "") $this -> settings[self::SETTINGS_KEY_TIMEOUT] = intval($extConf['client_timeout']);
     if ($extConf['client_follow_redirect'] === "1") $this -> settings[self::SETTINGS_KEY_FOLLOW_REDIRECT] = true;    
     if ($extConf['client_max_redirect'] !== "") $this -> settings[self::SETTINGS_KEY_FOLLOW_MAX_REDIRECT] = intval($extConf['client_max_redirect']);          
-    if ($extConf['client_proxy_typo3'] === "1") {
-      if ($GLOBALS['TYPO3_CONF_VARS']['HTTP']['proxy_host'] !== "") {
-        $this -> settings[self::SETTINGS_KEY_PROXY_ADDRESS] = $GLOBALS['TYPO3_CONF_VARS']['HTTP']['proxy_host'];        
-      }
-      if ($GLOBALS['TYPO3_CONF_VARS']['HTTP']['proxy_port'] !== "") {
-        $this -> settings[self::SETTINGS_KEY_PROXY_PORT] = intval($GLOBALS['TYPO3_CONF_VARS']['HTTP']['proxy_port']);        
-      }
+    if ($extConf['client_proxy_typo3'] === "1" && $GLOBALS['TYPO3_CONF_VARS']['HTTP']['proxy_host'] !== "") {    
+      $this -> settings[self::SETTINGS_KEY_PROXY_ADDRESS] = $GLOBALS['TYPO3_CONF_VARS']['HTTP']['proxy_host'];
+      if ($GLOBALS['TYPO3_CONF_VARS']['HTTP']['proxy_port'] !== "") $this -> settings[self::SETTINGS_KEY_PROXY_PORT] = intval($GLOBALS['TYPO3_CONF_VARS']['HTTP']['proxy_port']);        
       if ($GLOBALS['TYPO3_CONF_VARS']['HTTP']['proxy_user'] !== "") {
         $this -> settings[self::SETTINGS_KEY_PROXY_CREDENTIALS] = $GLOBALS['TYPO3_CONF_VARS']['HTTP']['proxy_user'];
-        if ($GLOBALS['TYPO3_CONF_VARS']['HTTP']['proxy_password'] !== "") {
-          $this -> settings[self::SETTINGS_KEY_PROXY_CREDENTIALS] .= ":".$GLOBALS['TYPO3_CONF_VARS']['HTTP']['proxy_password'];            
-        }
-        if ($GLOBALS['TYPO3_CONF_VARS']['HTTP']['proxy_auth_scheme'] !== "") {
-          $this -> settings[self::SETTINGS_KEY_PROXY_AUTH_SCHEME] = $GLOBALS['TYPO3_CONF_VARS']['HTTP']['proxy_auth_scheme'];
-        }
-      }      
+        if ($GLOBALS['TYPO3_CONF_VARS']['HTTP']['proxy_password'] !== "") $this -> settings[self::SETTINGS_KEY_PROXY_CREDENTIALS] .= ":".$GLOBALS['TYPO3_CONF_VARS']['HTTP']['proxy_password'];          
+        if ($GLOBALS['TYPO3_CONF_VARS']['HTTP']['proxy_auth_scheme'] !== "") $this -> settings[self::SETTINGS_KEY_PROXY_AUTH_SCHEME] = $GLOBALS['TYPO3_CONF_VARS']['HTTP']['proxy_auth_scheme'];          
+      }            
     }
-    else {
-      if ($extConf['client_proxy_address'] !== "") $this -> settings[self::SETTINGS_KEY_PROXY_ADDRESS] = $extConf['client_proxy_address'];    
+    elseif ($extConf['client_proxy_address'] !== "") {    
+      $this -> settings[self::SETTINGS_KEY_PROXY_ADDRESS] = $extConf['client_proxy_address'];    
       if ($extConf['client_proxy_port'] !== "") $this -> settings[self::SETTINGS_KEY_PROXY_PORT] = intval($extConf['client_proxy_port']);    
-      if ($extConf['client_proxy_credentials'] !== "") $this -> settings[self::SETTINGS_KEY_PROXY_CREDENTIALS] = $extConf['client_proxy_credentials'];
-      if ($extConf['client_proxy_auth_scheme'] !== "") $this -> settings[self::SETTINGS_KEY_PROXY_AUTH_SCHEME] = $extConf['client_proxy_auth_scheme'];    
+      if ($extConf['client_proxy_credentials'] !== "") {
+        $this -> settings[self::SETTINGS_KEY_PROXY_CREDENTIALS] = $extConf['client_proxy_credentials'];
+        if ($extConf['client_proxy_auth_scheme'] !== "") $this -> settings[self::SETTINGS_KEY_PROXY_AUTH_SCHEME] = $extConf['client_proxy_auth_scheme'];                
+      }
     }
     if ($extConf['client_user_agent'] !== "") $this -> settings[self::SETTINGS_KEY_USER_AGENT] = $extConf['user_agent'];                       
   }
@@ -255,7 +249,7 @@ class HttpClient {
    * @return HttpClient The current instance
    */
   public function setTimeout($timeout) {
-    if (isset($timeout))$this -> settings[self::SETTINGS_KEY_TIMEOUT] = intval($timeout);    
+    if (isset($timeout)) $this -> settings[self::SETTINGS_KEY_TIMEOUT] = intval($timeout);    
     return $this;
   }
   
@@ -282,16 +276,21 @@ class HttpClient {
    * @return HttpClient The current instance
    */
   public function setProxy($proxyAddress, $proxyPort = null, $proxyCredentials = null, $proxyAuthScheme = null){    
-    //reset
-    $this -> settings[self::SETTINGS_KEY_PROXY_ADDRESS] = null;
-    $this -> settings[self::SETTINGS_KEY_PROXY_PORT] = null;
-    $this -> settings[self::SETTINGS_KEY_PROXY_CREDENTIALS] = null;    
-    $this -> settings[self::SETTINGS_KEY_PROXY_AUTH_SCHEME] = null;    
     //set
-    if (isset($proxyAddress)) $this -> settings[self::SETTINGS_KEY_PROXY_ADDRESS] = $proxyAddress;
-    if (isset($proxyPort)) $this -> settings[self::SETTINGS_KEY_PROXY_PORT] = intval($proxyPort);
-    if (isset($proxyCredentials)) $this -> settings[self::SETTINGS_KEY_PROXY_CREDENTIALS] = $proxyCredentials;    
-    if (isset($proxyAuthScheme)) $this -> settings[self::SETTINGS_KEY_PROXY_AUTH_SCHEME] = $proxyAuthScheme;    
+    if (isset($proxyAddress)) {
+      //reset
+      $this -> settings[self::SETTINGS_KEY_PROXY_ADDRESS] = null;
+      $this -> settings[self::SETTINGS_KEY_PROXY_PORT] = null;
+      $this -> settings[self::SETTINGS_KEY_PROXY_CREDENTIALS] = null;    
+      $this -> settings[self::SETTINGS_KEY_PROXY_AUTH_SCHEME] = null;    
+      //set
+      $this -> settings[self::SETTINGS_KEY_PROXY_ADDRESS] = $proxyAddress;
+      if (isset($proxyPort)) $this -> settings[self::SETTINGS_KEY_PROXY_PORT] = intval($proxyPort);
+      if (isset($proxyCredentials)) {
+        $this -> settings[self::SETTINGS_KEY_PROXY_CREDENTIALS] = $proxyCredentials;    
+        if (isset($proxyAuthScheme)) $this -> settings[self::SETTINGS_KEY_PROXY_AUTH_SCHEME] = $proxyAuthScheme;    
+      }
+    }
     return $this;    
   }
   
@@ -457,17 +456,21 @@ class HttpClient {
       $clientOpt[CURLOPT_FOLLOWLOCATION] = true;
       if (isset($this -> settings[self::SETTINGS_KEY_FOLLOW_MAX_REDIRECT])) $clientOpt[CURLOPT_MAXREDIRS] = $this -> settings[self::SETTINGS_KEY_FOLLOW_MAX_REDIRECT];
     }
-    if (isset($this -> settings[self::SETTINGS_KEY_PROXY_ADDRESS])) $clientOpt[CURLOPT_PROXY] = $this -> settings[self::SETTINGS_KEY_PROXY_ADDRESS];
-    if (isset($this -> settings[self::SETTINGS_KEY_PROXY_PORT])) $clientOpt[CURLOPT_PROXYPORT] = $this -> settings[self::SETTINGS_KEY_PROXY_PORT];
-    if (isset($this -> settings[self::SETTINGS_KEY_PROXY_CREDENTIALS])) $clientOpt[CURLOPT_PROXYUSERPWD] = $this -> settings[self::SETTINGS_KEY_PROXY_CREDENTIALS];            
-    if (isset($this -> settings[self::SETTINGS_KEY_PROXY_AUTH_SCHEME])) {
-      if ($this -> settings[self::SETTINGS_KEY_PROXY_AUTH_SCHEME] == 'digest') {
-        $clientOpt[CURLOPT_HTTPAUTH] = CURLAUTH_DIGEST;            
+    if (isset($this -> settings[self::SETTINGS_KEY_PROXY_ADDRESS])) {
+      $clientOpt[CURLOPT_PROXY] = $this -> settings[self::SETTINGS_KEY_PROXY_ADDRESS];
+      if (isset($this -> settings[self::SETTINGS_KEY_PROXY_PORT])) $clientOpt[CURLOPT_PROXYPORT] = $this -> settings[self::SETTINGS_KEY_PROXY_PORT];
+      if (isset($this -> settings[self::SETTINGS_KEY_PROXY_CREDENTIALS])) {
+        $clientOpt[CURLOPT_PROXYUSERPWD] = $this -> settings[self::SETTINGS_KEY_PROXY_CREDENTIALS];            
+        if (isset($this -> settings[self::SETTINGS_KEY_PROXY_AUTH_SCHEME])) {
+          if ($this -> settings[self::SETTINGS_KEY_PROXY_AUTH_SCHEME] == 'digest') {
+            $clientOpt[CURLOPT_HTTPAUTH] = CURLAUTH_DIGEST;            
+          }
+          else {
+            $clientOpt[CURLOPT_HTTPAUTH] = CURLAUTH_BASIC;
+          }
+        }
       }
-      else {
-        $clientOpt[CURLOPT_HTTPAUTH] = CURLAUTH_BASIC;
-      }
-    }
+    }    
     if (isset($this -> settings[self::SETTINGS_KEY_SSL_CHECK_DISABLED]) && $this -> settings[self::SETTINGS_KEY_SSL_CHECK_DISABLED] === true) {
       $clientOpt[CURLOPT_SSL_VERIFYPEER] = false;
       $clientOpt[CURLOPT_SSL_VERIFYHOST] = false;
