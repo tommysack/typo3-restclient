@@ -12,6 +12,13 @@ ChangeLog
 +-------------+-------------------------------------------------------------------------------------------------+
 | Version     | Changes                                                                                         |
 +=============+=================================================================================================+
+| 1.1.3       | * Some minor improvements in HttpClient                                                         |
+|             | * Release of restclient 1.1.3 in TER                                                            |
+|             |                                                                                                 |
+|             |                                                                                                 |
+|             |                                                                                                 |
+|             |                                                                                                 |
++-------------+-------------------------------------------------------------------------------------------------+
 | 1.1.2       | * Add optional feature initClient in function reset                                             |
 |             | * Fix to integer the max_redirect field in configuration                                        |
 |             | * Some small updates to documentation                                                           |
