@@ -390,9 +390,9 @@ class HttpClient {
    *
    * @param string $method The values get, post, put or delete
    * @param string $url The address to send the request
-   * @param array $header The header ex. array('Content-Type: application/json', ...)
-   * @param array|string $data The data ex. array('name' => 'john', 'surname' => 'doe', ...), {"name":"john","surname":"doe"}, ...
-   * @param array $files The files ex. array('file1'=> array('filename'=> 'file1.txt', 'realpath'=> '/path/to/file1', 'mimetype'=>'txt'), 'file2'=> array('filename'=> 'file2.txt', 'realpath'=> '/path/to/file2', 'mimetype'=>'txt'), ...)
+   * @param array $header The header eg. array('Content-Type: application/json', ...)
+   * @param array|string $data The data eg. array('name' => 'john', 'surname' => 'doe', ...), {"name":"john","surname":"doe"}, ...
+   * @param array $files The files eg. array('file1'=> array('filename'=> 'file1.txt', 'realpath'=> '/path/to/file1', 'mimetype'=>'txt'), 'file2'=> array('filename'=> 'file2.txt', 'realpath'=> '/path/to/file2', 'mimetype'=>'txt'), ...)
    * @return mixed The response, false if an error occurs 
    */
   public function doRequest($method, $url, $header = null, $data = null, $files = null) {
@@ -557,7 +557,7 @@ class HttpClient {
    * A shorthand for get request
    *
    * @param string $url The address to send the request
-   * @param array $header The header ex. array('X-Powered-By: John Doe', ...)   
+   * @param array $header The header eg. array('X-Powered-By: John Doe', ...)   
    * @return mixed The response, false if an error occurs 
    */
   public function get($url, $header = null) {
@@ -570,8 +570,8 @@ class HttpClient {
    * A shorthand for post request
    *
    * @param string $url The address to send the request
-   * @param array $header The header ex. array('Content-Type: application/json', ...)       
-   * @param array|string $data The data ex. array('name' => 'john', 'surname' => 'doe'), {"name":"john","surname":"doe"}, ...
+   * @param array $header The header eg. array('Content-Type: application/json', ...)       
+   * @param array|string $data The data eg. array('name' => 'john', 'surname' => 'doe'), {"name":"john","surname":"doe"}, ...
    * @return mixed The response, false if an error occurs 
    */
   public function post($url, $header = null, $data = null) {
@@ -582,8 +582,8 @@ class HttpClient {
    * A shorthand for put request
    *
    * @param string $url The address to send the request
-   * @param array $header The header ex. array('Content-Type: application/json', ...)     
-   * @param array|string $data The data ex. array('name' => 'john', 'surname' => 'doe'), {"name":"john","surname":"doe"}, ...
+   * @param array $header The header eg. array('Content-Type: application/json', ...)     
+   * @param array|string $data The data eg. array('name' => 'john', 'surname' => 'doe'), {"name":"john","surname":"doe"}, ...
    * @return mixed The response, false if an error occurs 
    */
   public function put($url, $header = null, $data = null) {
@@ -594,8 +594,8 @@ class HttpClient {
    * A shorthand for delete request
    *
    * @param string $url The address to send the request
-   * @param array $header The header ex. array('Content-Type: application/json', ...)     
-   * @param array|string $data The data ex. array('name' => 'john', 'surname' => 'doe'), {"name":"john","surname":"doe"}, ...
+   * @param array $header The header eg. array('Content-Type: application/json', ...)     
+   * @param array|string $data The data eg. array('name' => 'john', 'surname' => 'doe'), {"name":"john","surname":"doe"}, ...
    * @return mixed The response, false if an error occurs 
    */
   public function delete($url, $header = null, $data = null) {

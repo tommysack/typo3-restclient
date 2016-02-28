@@ -55,7 +55,30 @@ Also you can use the CRUD shorthands:
       $errorMEssage = $e->getMessage();
     }
 
-If you need to set the HTTP header and to send data/files with the request:
+If you need to to send json with the request:
+
+.. code-block:: php    
+
+    $data = array('message' => 'It\'s just a message sent with RESTclient.');
+    $dataJson = json_encode($data);
+    $httpClientRequest = $this->objectManager->get('TS\Restclient\Client\HttpClientRequest') 
+      -> setMethod('post') 
+      -> setUrl('http://domain/api/users/123/feed')
+      -> setHeader(array('Content-Type: application/json', 'Content-Length: '.strlen($dataJson)))
+      -> setData($dataJson)
+    $httpClient = $this->objectManager->get('TS\Restclient\Client\HttpClient')->setErrorThrowException(true)->setRequest($httpClientRequest);
+    try {     
+      $httpClient->exec();
+      
+      $httpClientResponse = $httpClient->getResponse();
+      $userProfile = $httpClientResponse->getBody();
+    }
+    catch (HttpClientException $e) {
+      $errorCode = $e->getCode();
+      $errorMEssage = $e->getMessage();
+    }
+
+If you need to set the HTTP header and to send files/data fields with the request:
 
 .. code-block:: php
 
@@ -63,7 +86,7 @@ If you need to set the HTTP header and to send data/files with the request:
       -> setMethod('post') 
       -> setUrl('http://domain/api/users/123/feed')
       -> setHeader(array('Authorization: OAuth 1234567890'))
-      -> setFields(array('message' => 'It\'s just a message sent with RESTclient.'))
+      -> setData(array('message' => 'It\'s just a message sent with RESTclient.'))
       -> setFiles array('file1'=> array('filename'=> 'file1.txt', 'realpath'=> '/path/to/file1', 'mimetype'=>'txt'));
     $httpClient = $this->objectManager->get('TS\Restclient\Client\HttpClient')->setErrorThrowException(true)->setRequest($httpClientRequest);
     try {     
@@ -295,16 +318,16 @@ This table provides how to use the methods provided by HttpClient.
 |                                                                                                                                                  | 
 |                                                                                                                                                  | 
 +--------------------------------------------------------------------------------------------------------------------------------------------------+
-| doRequest (string $method, string $url[, array $header = null][, array $fields = null][, array $files = null])                                   |
+| doRequest (string $method, string $url[, array $header = null][, array $data = null][, array $files = null])                                     |
 |   Execute a CRUD request.                                                                                                                        |  
-|                                                                                                                                                  |                                                                          
+|                                                                                                                                                  |
 |   The methods are: 'get', 'post', 'put', 'delete'.                                                                                               |
 |                                                                                                                                                  |  
 |   The url is address to send the request.                                                                                                        | 
 |                                                                                                                                                  |        
 |   The header is something like array('X-Powered-By: John Doe', ...).                                                                             |
 |                                                                                                                                                  |   
-|   The fields is something like array('name' => 'john', 'surname' => 'doe', ...).                                                                 |
+|   The data is something like array('name' => 'john', 'surname' => 'doe', ...) or string {"name":"john","surname":"doe"}.                         |
 |                                                                                                                                                  | 
 |   The files is something like array('file1'=> array('filename'=> 'file1.txt', 'realpath'=> '/path/to/file1', 'mimetype'=>'txt'), ...).           |
 |                                                                                                                                                  |
@@ -313,7 +336,7 @@ This table provides how to use the methods provided by HttpClient.
 |                                                                                                                                                  | 
 |                                                                                                                                                  | 
 +--------------------------------------------------------------------------------------------------------------------------------------------------+
-| get (string $url[, bool $jsonDecode = null])                                                                                                     | 
+| get (string $url[, array $header = null])                                                                                                        | 
 |   The shorthand for a GET request.                                                                                                               | 
 |                                                                                                                                                  | 
 |                                                                                                                                                  | 
@@ -322,7 +345,7 @@ This table provides how to use the methods provided by HttpClient.
 |                                                                                                                                                  | 
 |                                                                                                                                                  | 
 +--------------------------------------------------------------------------------------------------------------------------------------------------+
-| post (string $url[, array $fields = null])                                                                                                       | 
+| post (string $url[, array $header = null][, array $data = null])                                                                                 | 
 |   The shorthand for a POST request.                                                                                                              | 
 |                                                                                                                                                  | 
 |                                                                                                                                                  | 
@@ -331,7 +354,7 @@ This table provides how to use the methods provided by HttpClient.
 |                                                                                                                                                  | 
 |                                                                                                                                                  | 
 +--------------------------------------------------------------------------------------------------------------------------------------------------+
-| put (string $url[, array $fields = null])                                                                                                        | 
+| put (string $url[, array $header = null][, array $data = null])                                                                                  | 
 |   The shorthand for a PUT request.                                                                                                               | 
 |                                                                                                                                                  | 
 |                                                                                                                                                  | 
@@ -340,7 +363,7 @@ This table provides how to use the methods provided by HttpClient.
 |                                                                                                                                                  | 
 |                                                                                                                                                  | 
 +--------------------------------------------------------------------------------------------------------------------------------------------------+
-| delete (string $url[, array $fields = null])                                                                                                     | 
+| delete (string $url[, array $header = null][, array $data = null])                                                                               | 
 |   The shorthand for a DELETE request.                                                                                                            | 
 |                                                                                                                                                  | 
 |                                                                                                                                                  | 
@@ -462,8 +485,8 @@ This table provides how to use the methods provided by HttpClientRequest.
 |                                                                                                                                                  |  
 |                                                                                                                                                  |  
 +--------------------------------------------------------------------------------------------------------------------------------------------------+
-| getFields (void)                                                                                                                                 |  
-|   Returns the fields.                                                                                                                            |  
+| getData (void)                                                                                                                                   |  
+|   Returns the data.                                                                                                                              |  
 |                                                                                                                                                  |  
 |                                                                                                                                                  |  
 |                                                                                                                                                  |  
@@ -471,8 +494,8 @@ This table provides how to use the methods provided by HttpClientRequest.
 |                                                                                                                                                  |  
 |                                                                                                                                                  |  
 +--------------------------------------------------------------------------------------------------------------------------------------------------+
-| setFields (array $fields)                                                                                                                        |  
-|   Set the fields, something like array('name' => 'john', 'surname' => 'doe', ...).                                                               | 
+| setData ($data)                                                                                                                                  |  
+|   Set the data, something like array('name' => 'john', 'surname' => 'doe', ...) or string {"name":"john","surname":"doe"}.                       | 
 |                                                                                                                                                  |   
 |   Returns the HttpClientRequest current instance.                                                                                                | 
 |                                                                                                                                                  |  
@@ -480,18 +503,8 @@ This table provides how to use the methods provided by HttpClientRequest.
 |                                                                                                                                                  |  
 |                                                                                                                                                  | 
 +--------------------------------------------------------------------------------------------------------------------------------------------------+
-| addFields (array $fields)                                                                                                                        |  
-|   Add fields to HttpClientRequest fields, something like array('age' => '23', ...).                                                              | 
-|                                                                                                                                                  |   
-|   Returns the HttpClientRequest current instance.                                                                                                | 
-|                                                                                                                                                  |  
-|                                                                                                                                                  |  
-|                                                                                                                                                  |  
-|                                                                                                                                                  |  
-|                                                                                                                                                  | 
-+--------------------------------------------------------------------------------------------------------------------------------------------------+
-| resetFields (void)                                                                                                                               |  
-|   Reset the current fields.                                                                                                                      | 
+| resetData (void)                                                                                                                                 |  
+|   Reset the current data.                                                                                                                        | 
 |                                                                                                                                                  |   
 |   Returns the HttpClientRequest current instance.                                                                                                | 
 |                                                                                                                                                  |  
