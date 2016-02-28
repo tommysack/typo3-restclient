@@ -380,9 +380,9 @@ class HttpClient {
     $method = $this -> request -> getMethod();
     $url = $this -> request -> getUrl();    
     $header = $this -> request -> getHeader();
-    $fields = $this -> request -> getFields();
+    $data = $this -> request -> getData();
     $files = $this -> request -> getFiles();
-    return $this -> doRequest($method, $url, $header, $fields, $files);    
+    return $this -> doRequest($method, $url, $header, $data, $files);    
   } 
   
   /**
@@ -390,12 +390,12 @@ class HttpClient {
    *
    * @param string $method The values get, post, put or delete
    * @param string $url The address to send the request
-   * @param array $header The header ex. array('X-Powered-By: John Doe', ...)
-   * @param array $fields The data ex. array('name' => 'john', 'surname' => 'doe', ...)
+   * @param array $header The header ex. array('Content-Type: application/json', ...)
+   * @param array|string $data The data ex. array('name' => 'john', 'surname' => 'doe', ...), {"name":"john","surname":"doe"}, ...
    * @param array $files The files ex. array('file1'=> array('filename'=> 'file1.txt', 'realpath'=> '/path/to/file1', 'mimetype'=>'txt'), 'file2'=> array('filename'=> 'file2.txt', 'realpath'=> '/path/to/file2', 'mimetype'=>'txt'), ...)
    * @return mixed The response, false if an error occurs 
    */
-  public function doRequest($method, $url, $header = null, $fields = null, $files = null) {
+  public function doRequest($method, $url, $header = null, $data = null, $files = null) {
     
     //Instance cURL
     if (isset($this -> client) && $this -> client !== false) {
@@ -441,12 +441,12 @@ class HttpClient {
         }
       }
     }
-    if (isset($fields)) {            
-      $postData = isset($postData) ? array_merge($fields, $postData) : http_build_query($fields);
+    if (isset($data)) {      
+       $postData = isset($postData) ? array_merge($data, $postData) : $data;//array, string   
     }    
     if (isset($postData)) {
       $clientOpt[CURLOPT_POSTFIELDS] = $postData;    
-    }
+    }    
     
     $clientOpt[CURLOPT_RETURNTRANSFER] = true;//force
     $clientOpt[CURLOPT_HEADER] = true;//force    
@@ -557,46 +557,49 @@ class HttpClient {
    * A shorthand for get request
    *
    * @param string $url The address to send the request
-   * @param bool $jsonDecode If true, return a json_decode response
+   * @param array $header The header ex. array('X-Powered-By: John Doe', ...)   
    * @return mixed The response, false if an error occurs 
    */
-  public function get($url, $jsonDecode = null) {
-    $this -> doRequest(self::REQUEST_METHOD_GET, $url);    
-    $response = isset($this -> response) && $this -> response !== false ? $this -> response -> getBody($jsonDecode) : false;
+  public function get($url, $header = null) {
+    $this -> doRequest(self::REQUEST_METHOD_GET, $url, $header);    
+    $response = isset($this -> response) && $this -> response !== false ? $this -> response -> getBody() : false;
     return $response;    
   }
   
   /**
    * A shorthand for post request
    *
-   * @param string $url The address to send the request   
-   * @param array $fields The data ex. array('name' => 'john', 'surname' => 'doe')
+   * @param string $url The address to send the request
+   * @param array $header The header ex. array('Content-Type: application/json', ...)       
+   * @param array|string $data The data ex. array('name' => 'john', 'surname' => 'doe'), {"name":"john","surname":"doe"}, ...
    * @return mixed The response, false if an error occurs 
    */
-  public function post($url, $fields = null) {
-    return $this -> doRequest(self::REQUEST_METHOD_POST, $url, null, $fields);    
+  public function post($url, $header = null, $data = null) {
+    return $this -> doRequest(self::REQUEST_METHOD_POST, $url, $header, $data);    
   }
   
   /**
    * A shorthand for put request
    *
    * @param string $url The address to send the request
-   * @param array $fields The data ex. array('name' => 'john', 'surname' => 'doe')
+   * @param array $header The header ex. array('Content-Type: application/json', ...)     
+   * @param array|string $data The data ex. array('name' => 'john', 'surname' => 'doe'), {"name":"john","surname":"doe"}, ...
    * @return mixed The response, false if an error occurs 
    */
-  public function put($url, $fields = null) {
-    return $this -> doRequest(self::REQUEST_METHOD_PUT, $url, null, $fields);
+  public function put($url, $header = null, $data = null) {
+    return $this -> doRequest(self::REQUEST_METHOD_PUT, $url, $header, $data);
   }
   
   /**
    * A shorthand for delete request
    *
-   * @param string $url The address to send the request   
-   * @param array $fields The data ex. array('name' => 'john', 'surname' => 'doe')
+   * @param string $url The address to send the request
+   * @param array $header The header ex. array('Content-Type: application/json', ...)     
+   * @param array|string $data The data ex. array('name' => 'john', 'surname' => 'doe'), {"name":"john","surname":"doe"}, ...
    * @return mixed The response, false if an error occurs 
    */
-  public function delete($url, $fields = null) {
-    return $this -> doRequest(self::REQUEST_METHOD_DELETE, $url, null, $fields);
+  public function delete($url, $header = null, $data = null) {
+    return $this -> doRequest(self::REQUEST_METHOD_DELETE, $url, $header, $data);
   }       
   
   /**

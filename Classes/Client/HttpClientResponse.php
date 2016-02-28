@@ -120,14 +120,10 @@ class HttpClientResponse {
   /**
    * Get the body
    *
-   * @param bool $jsonDecode If true, return a json_decode response   
    * @return mixed The body
    */
-  public function getBody($jsonDecode = false) {
-    $body = $this -> body;
-    if (isset($jsonDecode) && $jsonDecode === true) {
-      $body = json_decode($body);
-    }
+  public function getBody() {
+    $body = $this -> body;    
     return $body;  
   }
   

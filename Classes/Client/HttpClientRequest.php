@@ -54,9 +54,9 @@ class HttpClientRequest {
   protected $header;    
   
   /**   
-   * @var array The data fields
+   * @var array|string The data 
    */
-  protected $fields;
+  protected $data;
   
   /**   
    * @var array The files
@@ -149,47 +149,32 @@ class HttpClientRequest {
   }
 
   /**
-   * Get the fields
+   * Get the data
    *   
-   * @return array The fields
+   * @return array|string The data
    */
-  public function getFields() {    
-    return $this -> fields;
-  }
-  
+  public function getData() {    
+    return $this -> data;
+  }  
+ 
   /**
-   * Add fields
-   *
-   * @param array The fields  
+   * Reset the data
+   *   
    * @return HttpClientRequest The current instance
    */
-  public function addFields($fields) {
-    if (!isset($this -> fields)) {
-      $this -> fields = array();
-    }
-    $this -> fields = array_merge($this -> fields, $fields);
-    
+  public function resetData() {
+    unset($this -> data);
     return $this;  
   }
   
   /**
-   * Reset the fields
-   *   
-   * @return HttpClientRequest The current instance
-   */
-  public function resetFields() {
-    unset($this -> fields);
-    return $this;  
-  }
-  
-  /**
-   * Set the fields
+   * Set the data
    *
-   * @param array The fields  
+   * @param array|string The data  
    * @return HttpClientRequest The current instance
    */
-  public function setFields($fields) {
-    $this -> fields = $fields;
+  public function setData($data) {
+    $this -> data = $data;
     return $this;  
   }
   
