@@ -1,7 +1,7 @@
 {
     "name": "ts/restclient",
     "type": "typo3-cms-extension",
-    "description": "A client to consume RESTful Web Services", 
+    "description": "A client to consume RESTful Web Services",
     "homepage": "https://typo3.org/extensions/repository/view/restclient",
     "authors": [
         {
@@ -11,11 +11,20 @@
     ],
     "require": {
         "php": ">=5.3.0",
-        "typo3/cms-core": ">=6.2.0"        
-    },       
+        "typo3/cms-core": ">=6.2.0"
+    },
     "keywords": ["restclient", "rest", "client", "restful", "http", "webservices"],
     "support": {
         "issues": "https://forge.typo3.org/projects/extension-restclient"
     },
-    "version": "2.0.0"
+    "version": "2.0.0",
+    "autoload": {
+        "psr-4": {
+            "TS\\Restclient\\": "/Classes/"
+        }
+    },
+    "replace": {
+        "restclient": "self.version",
+        "typo3-ter/restclient": "self.version"
+    }
 }
