@@ -20,7 +20,7 @@
     "version": "2.0.1",
     "autoload": {
         "psr-4": {
-            "TS\\Restclient\\": "/Classes/"
+            "TS\\Restclient\\": "Classes/"
         }
     },
     "replace": {
