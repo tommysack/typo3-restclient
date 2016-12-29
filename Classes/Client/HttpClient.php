@@ -626,7 +626,7 @@ class HttpClient {
    * @return void
    */
   public function __destruct() {
-    if ($this -> client !== false) {
+    if ($this -> client) {
       curl_close($this -> client);
     }
   }
