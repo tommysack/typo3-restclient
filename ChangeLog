@@ -1,3 +1,7 @@
+2017-04-24 Tommaso Sacramone  <tommasosacramone.www@gmail.com>  
+  * Some small bugfix (Thanks to contributors: sebastian-seitz and to m3g4p0p)
+  * Release of restclient 2.0.1 in TER
+
 2015-02-28 Tommaso Sacramone  <tommasosacramone.www@gmail.com>  
   * Substantial changes that allow you to send data strings (eg. json)
   * Release of restclient 2.0.0 in TER
