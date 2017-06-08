@@ -10,3 +10,7 @@ The HttpClient class is cURL library based.
 You can find complete documentation here[1].
 
 [1]: https://docs.typo3.org/typo3cms/extensions/restclient/
+
+## Feedback for composer mode
+
+If you download and install this extension in composer mode, i please you to star my project.
