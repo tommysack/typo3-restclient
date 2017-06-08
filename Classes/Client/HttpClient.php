@@ -206,7 +206,7 @@ class HttpClient {
     if (isset($this -> error)) {//Only to release
       $this -> error = null;
     }
-    $this -> error = GeneralUtility::makeInstance('\TS\Restclient\Client\HttpClientError', $code, $message);
+    $this -> error = GeneralUtility::makeInstance('TS\Restclient\Client\HttpClientError', $code, $message);
   }
 
   /**
