@@ -13,4 +13,5 @@ You can find complete documentation here[1].
 
 ## Feedback for composer mode
 
+I would appreciate it if you give me some feedback.
 If you download and install this extension in composer mode, i please you to star my project.
