@@ -27,6 +27,7 @@ namespace TS\Restclient\Client;
 ***************************************************************/
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 
 /**
  * REST client
@@ -112,7 +113,7 @@ class HttpClient {
    * Constructor
    */
   public function __construct() {
-    $this -> logger = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Core\Log\LogManager') -> getLogger(__CLASS__);
+    $this -> logger = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Core\Log\LogManager') -> getLogger(__CLASS__);    
     $this -> initClient();
   }
 
@@ -141,8 +142,8 @@ class HttpClient {
    * @return void
    */
   protected function initClient() {
-
-    $extConf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['restclient']);
+    
+    $extConf = GeneralUtility::makeInstance(ExtensionConfiguration::class) -> get('restclient');
     if ($extConf['error_throw_exception'] === "1") {
       $this -> settings[self::SETTINGS_KEY_EXCEPTION] = true;
     }
@@ -208,7 +209,7 @@ class HttpClient {
     if (isset($this -> settings[self::SETTINGS_KEY_LOG])) {
       $logMessage = 'Message: \''.$message.'\' Code= '.$code;
       switch($this -> settings[self::SETTINGS_KEY_LOG]) {
-        case(self::LOGGER_SEVERITY_INFO):
+        case(self::LOGGER_SEVERITY_INFO):        
           $this -> logger -> info($logMessage);
           break;
         case(self::LOGGER_SEVERITY_WARNING):
@@ -253,7 +254,7 @@ class HttpClient {
    * @return HttpClient The current instance
    */
   public function setErrorLog($errorLog = 1) {
-    if (isset($errorLog)) {
+    if (isset($errorLog)) {      
       $this -> settings[self::SETTINGS_KEY_LOG] = intval($errorLog);
     }
     return $this;
@@ -551,9 +552,9 @@ class HttpClient {
     //Execute cURL
     $curlResponse = curl_exec($this -> client);
 
-    $httpCode = curl_getinfo($this -> client, CURLINFO_HTTP_CODE);
-    if (isset($this -> settings[self::SETTINGS_KEY_CHECK_HTTPCODE]) && $this -> settings[self::SETTINGS_KEY_CHECK_HTTPCODE] === true) {
-      if ($httpCode >= self::SETTINGS_KEY_CHECK_HTTPCODE_VALUE) {
+    $httpCode = curl_getinfo($this -> client, CURLINFO_HTTP_CODE);    
+    if (isset($this -> settings[self::SETTINGS_KEY_CHECK_HTTPCODE]) && $this -> settings[self::SETTINGS_KEY_CHECK_HTTPCODE] === true) {      
+      if ($httpCode >= self::SETTINGS_KEY_CHECK_HTTPCODE_VALUE) {        
         $this -> errorHandler(self::ERROR_CODE_EXEC, __METHOD__ . ' exec request return http code = '.$httpCode);
         return false;
       }
@@ -580,8 +581,8 @@ class HttpClient {
     );
 
     if (isset($GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/restclient/Classes/HttpClient.php']['responsePreProcess'])) {
-      foreach($GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/restclient/Classes/HttpClient.php']['responsePreProcess'] as $hookClassResponsePreProcess) {
-        $hookObjectResponsePreProcess = \TYPO3\CMS\Core\Utility\GeneralUtility::getUserObj($hookClassResponsePreProcess);
+      foreach($GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/restclient/Classes/HttpClient.php']['responsePreProcess'] as $hookClassResponsePreProcess) {        
+        $hookObjectResponsePreProcess = GeneralUtility::makeInstance($hookClassResponsePreProcess);
         $hookObjectResponsePreProcess -> responsePreProcess($response, $this);
       }
     }
