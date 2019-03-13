@@ -1,3 +1,6 @@
+2019-03-13 Tommaso Sacramone  <tommasosacramone.www@gmail.com>  
+  * Fix regression for Typo3 7
+
 2019-02-21 Tommaso Sacramone  <tommasosacramone.www@gmail.com>  
   * Fix some deprecations for Typo3 9
   * Release of restclient 2.0.4 in TER
