@@ -143,7 +143,7 @@ class HttpClient {
    */
   protected function initClient() {
     
-    $extConf = GeneralUtility::makeInstance(ExtensionConfiguration::class) -> get('restclient');
+    $extConf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['restclient']);
     if ($extConf['error_throw_exception'] === "1") {
       $this -> settings[self::SETTINGS_KEY_EXCEPTION] = true;
     }
