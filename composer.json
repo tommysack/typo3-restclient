@@ -16,7 +16,7 @@
     "support": {
         "issues": "https://forge.typo3.org/projects/extension-restclient"
     },
-    "version": "2.0.5",
+    "version": "2.0.6",
     "replace": {
         "restclient": "self.version",
         "typo3-ter/restclient": "self.version"
