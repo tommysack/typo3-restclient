@@ -27,7 +27,6 @@ namespace TS\Restclient\Client;
 ***************************************************************/
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 
 /**
  * REST client
