@@ -7,7 +7,7 @@ conf.py:
   copyright: 2015
   project: REST client
   version: 1.0
-  release: 2.0.0
+  release: 2.0.6
   latex_documents:
   - - Index
     - restclient.tex
