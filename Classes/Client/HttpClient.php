@@ -1,6 +1,6 @@
 <?php
 
-namespace TS\Restclient\Client;
+namespace Tommysack\Restclient\Client;
 
 /***************************************************************
 *  Copyright notice
@@ -89,17 +89,17 @@ class HttpClient {
   protected $settings;
 
   /**
-   * @var \TS\Restclient\Client\HttpClientError The error
+   * @var \Tommysack\Restclient\Client\HttpClientError The error
    */
   protected $error;
 
   /**
-   * @var \TS\Restclient\Client\HttpClientResponse The response
+   * @var \Tommysack\Restclient\Client\HttpClientResponse The response
    */
   protected $response;
 
   /**
-   * @var \TS\Restclient\Client\HttpClientRequest The request
+   * @var \Tommysack\Restclient\Client\HttpClientRequest The request
    */
   protected $request;
 
@@ -226,13 +226,13 @@ class HttpClient {
     }
 
     if ($this -> settings[self::SETTINGS_KEY_EXCEPTION] === true) {
-      throw new \TS\Restclient\Client\HttpClientException($message, $code);
+      throw new \Tommysack\Restclient\Client\HttpClientException($message, $code);
     }
     //Reuse HttpClient without reset it: unset possible previous error, it will be the last
     if (isset($this -> error)) {//Only to release
       $this -> error = null;
     }
-    $this -> error = GeneralUtility::makeInstance('TS\Restclient\Client\HttpClientError', $code, $message);
+    $this -> error = GeneralUtility::makeInstance('Tommysack\Restclient\Client\HttpClientError', $code, $message);
   }
 
   /**
@@ -590,7 +590,7 @@ class HttpClient {
     if (isset($this -> response)) {//Only to release
       $this -> response = null;
     }
-    $this -> response = GeneralUtility::makeInstance('TS\Restclient\Client\HttpClientResponse', 
+    $this -> response = GeneralUtility::makeInstance('Tommysack\Restclient\Client\HttpClientResponse', 
       $response[self::RESPONSE_KEY_HEADER],
       $response[self::RESPONSE_KEY_BODY],
       $response[self::RESPONSE_KEY_REQUEST_SIZE],

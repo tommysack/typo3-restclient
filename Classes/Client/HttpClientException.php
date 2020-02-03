@@ -1,6 +1,6 @@
 <?php 
 
-namespace TS\Restclient\Client;
+namespace Tommysack\Restclient\Client;
 
 /***************************************************************
 *  Copyright notice

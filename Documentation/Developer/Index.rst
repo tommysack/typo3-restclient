@@ -13,8 +13,8 @@ Suppose, for instance, an Extbase controller action:
 
 .. code-block:: php
    
-   $httpClientRequest = $this->objectManager->get('TS\Restclient\Client\HttpClientRequest')->setMethod('GET')->setUrl('http://domain/api/users/123/profile');
-   $httpClient = $this->objectManager->get('TS\Restclient\Client\HttpClient')->setErrorThrowException(true)->setRequest($httpClientRequest);
+   $httpClientRequest = $this->objectManager->get('Tommysack\Restclient\Client\HttpClientRequest')->setMethod('GET')->setUrl('http://domain/api/users/123/profile');
+   $httpClient = $this->objectManager->get('Tommysack\Restclient\Client\HttpClient')->setErrorThrowException(true)->setRequest($httpClientRequest);
    try {     
      $httpClient->exec();
      
@@ -30,7 +30,7 @@ You can use HttpClient method doRequest setting the request in-line:
 
 .. code-block:: php
 
-   $httpClient = $this->objectManager->get('TS\Restclient\Client\HttpClient')->setErrorThrowException(true);   
+   $httpClient = $this->objectManager->get('Tommysack\Restclient\Client\HttpClient')->setErrorThrowException(true);   
    try {     
      $httpClient->doRequest('GET', 'http://domain/api/users/123/profile');
      
@@ -48,7 +48,7 @@ Also you can use the CRUD shorthands:
 .. code-block:: php
 
     try {
-      $userProfile = $this->objectManager->get('TS\Restclient\Client\HttpClient')->setErrorThrowException(true)->get('http://domain/api/users/123/profile');
+      $userProfile = $this->objectManager->get('Tommysack\Restclient\Client\HttpClient')->setErrorThrowException(true)->get('http://domain/api/users/123/profile');
     }
     catch (HttpClientException $e) {
       $errorCode = $e->getCode();
@@ -61,12 +61,12 @@ If you need to to send json with the request:
 
     $data = array('message' => 'It\'s just a message sent with RESTclient.');
     $dataJson = json_encode($data);
-    $httpClientRequest = $this->objectManager->get('TS\Restclient\Client\HttpClientRequest') 
+    $httpClientRequest = $this->objectManager->get('Tommysack\Restclient\Client\HttpClientRequest') 
       -> setMethod('post') 
       -> setUrl('http://domain/api/users/123/feed')
       -> setHeader(array('Content-Type: application/json', 'Content-Length: '.strlen($dataJson)))
       -> setData($dataJson)
-    $httpClient = $this->objectManager->get('TS\Restclient\Client\HttpClient')->setErrorThrowException(true)->setRequest($httpClientRequest);
+    $httpClient = $this->objectManager->get('Tommysack\Restclient\Client\HttpClient')->setErrorThrowException(true)->setRequest($httpClientRequest);
     try {     
       $httpClient->exec();
       
@@ -82,13 +82,13 @@ If you need to set the HTTP header and to send files/data fields with the reques
 
 .. code-block:: php
 
-    $httpClientRequest = $this->objectManager->get('TS\Restclient\Client\HttpClientRequest') 
+    $httpClientRequest = $this->objectManager->get('Tommysack\Restclient\Client\HttpClientRequest') 
       -> setMethod('post') 
       -> setUrl('http://domain/api/users/123/feed')
       -> setHeader(array('Authorization: OAuth 1234567890'))
       -> setData(array('message' => 'It\'s just a message sent with RESTclient.'))
       -> setFiles array('file1'=> array('filename'=> 'file1.txt', 'realpath'=> '/path/to/file1', 'mimetype'=>'txt'));
-    $httpClient = $this->objectManager->get('TS\Restclient\Client\HttpClient')->setErrorThrowException(true)->setRequest($httpClientRequest);
+    $httpClient = $this->objectManager->get('Tommysack\Restclient\Client\HttpClient')->setErrorThrowException(true)->setRequest($httpClientRequest);
     try {     
       $httpClient->exec();
       
@@ -104,8 +104,8 @@ If you don't set errorThrowException, you can analyze the HttpClientError:
 
 .. code-block:: php
 
-    $httpClientRequest = $this -> objectManager -> get('TS\Restclient\Client\HttpClientRequest')-> setMethod('get')->setUrl('http://domain/api/users/123/profile') 
-    $httpClient = $this->objectManager->get('TS\Restclient\Client\HttpClient')->setRequest($httpClientRequest);
+    $httpClientRequest = $this -> objectManager -> get('Tommysack\Restclient\Client\HttpClientRequest')-> setMethod('get')->setUrl('http://domain/api/users/123/profile') 
+    $httpClient = $this->objectManager->get('Tommysack\Restclient\Client\HttpClient')->setRequest($httpClientRequest);
     $httpClientResponse = $httpClient->exec()->getResponse();
     if ($httpClientResponse === false) {
       $errorCode = $httpClient->getError()->getCode();
@@ -121,7 +121,7 @@ This table provides the description of HttpClient* classes.
 +-------------------------------------------------------------+-------------------------------------------------+
 | Class Summary                                               | Description                                     |
 +=============================================================+=================================================+
-| \\TS\\Restclient\\Client\\HttpClient                        | The class that you must use to do the request   |
+| \\Tommysack\\Restclient\\Client\\HttpClient                        | The class that you must use to do the request   |
 |                                                             | and to receive the response.                    |
 |                                                             |                                                 |
 |                                                             |                                                 |
@@ -131,7 +131,7 @@ This table provides the description of HttpClient* classes.
 |                                                             |                                                 |
 |                                                             |                                                 |
 +-------------------------------------------------------------+-------------------------------------------------+
-| \\TS\\Restclient\\Client\\HttpClientRequest                 | The request.                                    |
+| \\Tommysack\\Restclient\\Client\\HttpClientRequest                 | The request.                                    |
 |                                                             |                                                 |
 |                                                             |                                                 |
 |                                                             |                                                 |
@@ -141,7 +141,7 @@ This table provides the description of HttpClient* classes.
 |                                                             |                                                 |
 |                                                             |                                                 |
 +-------------------------------------------------------------+-------------------------------------------------+
-| \\TS\\Restclient\\Client\\HttpClientResponse                | The response of HttpClient request.             |
+| \\Tommysack\\Restclient\\Client\\HttpClientResponse                | The response of HttpClient request.             |
 |                                                             |                                                 |
 |                                                             |                                                 |
 |                                                             |                                                 |
@@ -151,7 +151,7 @@ This table provides the description of HttpClient* classes.
 |                                                             |                                                 |
 |                                                             |                                                 |
 +-------------------------------------------------------------+-------------------------------------------------+
-| \\TS\\Restclient\\Client\\HttpClientError                   | If you don't set throwErrorException, in case of|
+| \\Tommysack\\Restclient\\Client\\HttpClientError                   | If you don't set throwErrorException, in case of|
 |                                                             | failure you still can get an instance of        |
 |                                                             | HttpClientError from HttpClient.                |
 |                                                             |                                                 |
@@ -161,7 +161,7 @@ This table provides the description of HttpClient* classes.
 |                                                             |                                                 |
 |                                                             |                                                 |
 +-------------------------------------------------------------+-------------------------------------------------+
-| \\TS\\Restclient\\Client\\HttpClientException               | The Exception class thrown from HttpClient      |
+| \\Tommysack\\Restclient\\Client\\HttpClientException               | The Exception class thrown from HttpClient      |
 |                                                             | in case of failure.                             |
 |                                                             |                                                 |
 |                                                             |                                                 |
